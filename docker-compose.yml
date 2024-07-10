@@ -27,7 +27,7 @@ services:
       - POSTGRES_DB=app
       - POSTGRES_USER=app
       - POSTGRES_PASSWORD=changethis123
-      - BACKEND_CORS_ORIGINS=http://localhost,http://localhost:5173,https://localhost,https://localhost:5173,http://localhost:8000,https://localhost:8000,http://localhost:8000/api,https://localhost:8000/api,http://localhost:8000/api/
+      - BACKEND_CORS_ORIGINS=http://localhost,http://localhost:5173,https://localhost,https://localhost:5173,http://localhost:8000,https://localhost:8000,http://localhost:8000/api,https://localhost:8000/api,http://localhost:8000/api/,http://www.vflame.chickenkiller.com
       - SECRET_KEY=changethis123
       - FIRST_SUPERUSER=devops@hng.tech
       - FIRST_SUPERUSER_PASSWORD=devops#HNG11
@@ -45,6 +45,7 @@ services:
     image: nginx:latest
     volumes: 
       - ./nginx/default.conf:/etc/nginx/conf.d/default.conf
+      - ./nginx/ssl:/etc/nginx/ssl
     depends_on:
       - frontend
       - backend
@@ -68,6 +69,7 @@ services:
     volumes:
       - ./proxy/data:/data
       - ./proxy/letsencrypt:/etc/letsencrypt
+      - ./proxy/ssl:/etc/nginx/ssl
     depends_on:
       - nginx
       - adminer
